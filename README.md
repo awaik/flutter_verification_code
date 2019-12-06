@@ -44,6 +44,6 @@ Center(
 ## Showcase
 
 
-![Showcase|100x100, 10%](show_case.gif)
+![Showcase|100x100, 10%](show_case1.gif)
 
 
