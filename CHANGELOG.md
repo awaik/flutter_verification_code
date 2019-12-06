@@ -1,12 +1,11 @@
-## [0.0.1] - TODO: Add release date.
+# 0.1.3
 
-* TODO: Describe initial release.
-
-## [0.1.1] - TODO: Add release date.
-
-* TODO: Fixed clean input
-
-
-## [0.1.2] - TODO: Add release date.
-
-* TODO: Support `autofocus`
+- New show case
+- `onEditing` can now be used for getting info about state of code completion
+```dart
+onEditing: (bool value) {
+  setState(() {
+    _onEditing = value;
+  });
+},
+```

@@ -34,6 +34,14 @@ import 'flutter_verification_code.dart';
 ```
 
 ```dart
+onEditing: (bool value) {
+  setState(() {
+    _onEditing = value;
+  });
+},
+```
+
+```dart
 Center(
               child: (_onEditing != true)
                   ? Text('Your code: $_code')
