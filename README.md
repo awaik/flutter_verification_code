@@ -1,4 +1,4 @@
-# flutter_verification_code_input
+# flutter_verification_code
 
 - A Flutter package that help you create a verification input.
 

@@ -9,9 +9,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-#  flutter_verification_code_input:
-#    git:
-#      url: git://github.com/awaik/flutter_verification_code.git
+
   cupertino_icons: ^0.1.3
 
   flutter_verification_code:
