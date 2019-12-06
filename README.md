@@ -33,6 +33,14 @@ import 'flutter_verification_code.dart';
   )
 ```
 
+```dart
+Center(
+              child: (_onEditing != true)
+                  ? Text('Your code: $_code')
+                  : Text('Please enter full code'),
+            ),
+```
+
 ## Showcase
 
 
