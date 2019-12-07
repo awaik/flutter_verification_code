@@ -9,14 +9,14 @@
 ## Installing
 
 ```yaml
-  flutter_verification_code:
-    git:
-      url: https://github.com/awaik/flutter_verification_code.git
-    version: ^0.1.3
+dependencies:
+  flutter_verification_code: ^0.1.3
 ```
 
+Now in your Dart code, you can use:
+
 ```dart
-import 'flutter_verification_code.dart';
+import 'package:flutter_verification_code/flutter_verification_code.dart';
 ```
 
 ## Usage
