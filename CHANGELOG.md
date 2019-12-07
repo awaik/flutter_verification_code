@@ -1,3 +1,8 @@
+# 0.1.4
+
+- Improved description in README.md files for package and example.
+
+
 # 0.1.3
 
 - New show case
