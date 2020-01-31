@@ -35,7 +35,7 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Column(
         children: <Widget>[
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: EdgeInsets.all(8.0),
             child: Center(
               child: Text(
                 'Enter your code',
@@ -46,9 +46,7 @@ class _MyHomePageState extends State<MyHomePage> {
           VerificationCode(
             keyboardType: TextInputType.number,
             length: 4,
-            autofocus: false,
             onCompleted: (String value) {
-              print(value);
               setState(() {
                 _code = value;
               });
@@ -60,11 +58,11 @@ class _MyHomePageState extends State<MyHomePage> {
             },
           ),
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: EdgeInsets.all(8.0),
             child: Center(
-              child: (_onEditing != true)
-                  ? Text('Your code: $_code')
-                  : Text('Please enter full code'),
+              child: _onEditing
+                  ? Text('Please enter full code')
+                  : Text('Your code: $_code'),
             ),
           )
         ],

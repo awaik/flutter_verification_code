@@ -1,3 +1,8 @@
+# 0.1.5
+
+- Fixed bug that was connected with FocusNode() and appeared after big Flutter update.
+
+
 # 0.1.4
 
 - Improved description in README.md files for package and example.

@@ -10,7 +10,7 @@
 
 ```yaml
 dependencies:
-  flutter_verification_code: ^0.1.3
+  flutter_verification_code: ^0.1.5
 ```
 
 Now in your Dart code, you can use:
