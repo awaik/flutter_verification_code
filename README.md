@@ -1,4 +1,4 @@
-# flutter_verification_code
+# flutter_verification_code [![Pub](https://img.shields.io/pub/v/flutter_verification_code.svg)](https://pub.dev/packages/flutter_verification_code)
 
 - A Flutter package that help you create a verification input.
 
