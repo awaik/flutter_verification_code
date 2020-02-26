@@ -31,18 +31,17 @@ class VerificationCode extends StatefulWidget {
 class _VerificationCodeState extends State<VerificationCode> {
   static final List<FocusNode> _listFocusNode = <FocusNode>[];
   final List<TextEditingController> _listControllerText =
-      <TextEditingController>[];
+  <TextEditingController>[];
   List<String> _code = List();
   int _currentIndex = 0;
 
   @override
   void initState() {
-    if (_listFocusNode.isEmpty) {
-      for (var i = 0; i < widget.length; i++) {
-        _listFocusNode.add(FocusNode());
-        _listControllerText.add(TextEditingController());
-        _code.add('');
-      }
+    _listFocusNode.clear();
+    for (var i = 0; i < widget.length; i++) {
+      _listFocusNode.add(FocusNode());
+      _listControllerText.add(TextEditingController());
+      _code.add('');
     }
     super.initState();
   }
