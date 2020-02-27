@@ -80,7 +80,7 @@ class _VerificationCodeState extends State<VerificationCode> {
           contentPadding: EdgeInsets.all(((widget.itemSize * 2) / 10)),
           errorMaxLines: 1,
           fillColor: Colors.black),
-      textInputAction: TextInputAction.previous,
+//      textInputAction: TextInputAction.previous,
       onChanged: (String value) {
         if ((_currentIndex + 1) == widget.length && value.length > 0) {
           widget.onEditing(false);

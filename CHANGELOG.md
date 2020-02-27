@@ -1,3 +1,8 @@
+# 0.1.6
+
+- Thanks for finding and fixing bug to https://github.com/mohammadPezesh1994 - "bug occur when create VerificationCode in stateful widget and after created"
+- Fixed bug "Keyboard can not display on iOS". Thank for the issue to https://github.com/thienhaole92
+
 # 0.1.5+1
 
 - Improved README.MD
