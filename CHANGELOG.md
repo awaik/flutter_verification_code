@@ -1,3 +1,7 @@
+# 0.1.6+1
+
+- Removed color from constructor
+
 # 0.1.6
 
 - Thanks for finding and fixing bug to https://github.com/mohammadPezesh1994 - "bug occur when create VerificationCode in stateful widget and after created"
