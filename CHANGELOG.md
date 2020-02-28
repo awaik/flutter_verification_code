@@ -1,6 +1,6 @@
 # 0.1.6+1
 
-- Removed color from constructor
+- Removed color from constructor, thanks for finding and fixing https://github.com/almayahi
 
 # 0.1.6
 
