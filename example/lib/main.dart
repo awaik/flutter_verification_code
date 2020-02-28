@@ -44,6 +44,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ),
           VerificationCode(
+            textStyle: TextStyle(fontSize: 20.0, color: Colors.red[900]),
             keyboardType: TextInputType.number,
             length: 4,
             onCompleted: (String value) {

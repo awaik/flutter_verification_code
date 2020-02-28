@@ -18,7 +18,7 @@ class VerificationCode extends StatefulWidget {
     this.length = 4,
     this.itemDecoration,
     this.itemSize = 50,
-    this.textStyle = const TextStyle(fontSize: 25.0, color: Colors.black),
+    this.textStyle = const TextStyle(fontSize: 25.0),
     this.autofocus = false,
   })  : assert(length > 0),
         assert(itemSize > 0),
@@ -31,7 +31,7 @@ class VerificationCode extends StatefulWidget {
 class _VerificationCodeState extends State<VerificationCode> {
   static final List<FocusNode> _listFocusNode = <FocusNode>[];
   final List<TextEditingController> _listControllerText =
-  <TextEditingController>[];
+      <TextEditingController>[];
   List<String> _code = List();
   int _currentIndex = 0;
 
