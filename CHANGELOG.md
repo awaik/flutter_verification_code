@@ -1,5 +1,9 @@
 # 0.1.6+1
 
+- Change onCompleted, onEditing option to @required for fixing issue https://github.com/awaik/flutter_verification_code/issues/5
+
+# 0.1.6+1
+
 - Removed color from constructor, thanks for finding and fixing https://github.com/almayahi
 
 # 0.1.6

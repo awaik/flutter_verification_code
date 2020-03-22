@@ -6,14 +6,7 @@
 
 - Added state change in case user delete char after complete fill, take a look an example on [Stackoverflow](https://stackoverflow.com/questions/59005381/how-to-know-when-user-delete-the-input-in-verificationcodeinput-flutter/59006077#59006077)
 
-## Installing
-
-```yaml
-dependencies:
-  flutter_verification_code: ^0.1.6+1
-```
-
-Now in your Dart code, you can use:
+After install, in your Dart code, you can use:
 
 ```dart
 import 'package:flutter_verification_code/flutter_verification_code.dart';

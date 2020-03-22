@@ -12,8 +12,8 @@ class VerificationCode extends StatefulWidget {
   final bool autofocus;
   VerificationCode({
     Key key,
-    this.onCompleted,
-    this.onEditing,
+    @required this.onCompleted,
+    @required this.onEditing,
     this.keyboardType = TextInputType.number,
     this.length = 4,
     this.itemDecoration,
