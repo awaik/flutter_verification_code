@@ -1,4 +1,4 @@
-# 0.1.6+1
+# 0.1.6+2
 
 - Change onCompleted, onEditing option to @required for fixing issue https://github.com/awaik/flutter_verification_code/issues/5
 
