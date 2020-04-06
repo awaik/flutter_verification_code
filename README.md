@@ -15,15 +15,33 @@ import 'package:flutter_verification_code/flutter_verification_code.dart';
 ## Usage
 
 ```dart
-  VerificationCode(
-      keyboardType: TextInputType.number,
-      length: 4,
-      autofocus: true,
-      onCompleted: (String value) {
-        //...
-        print(value);
-      },
-  )
+VerificationCode(
+  textStyle: TextStyle(fontSize: 20.0, color: Colors.red[900]),
+  keyboardType: TextInputType.number,
+  length: 4,
+  // clearAll is NOT required, you can delete it
+  // takes any widget, so you can implement your design
+  clearAll: Padding(
+    padding: const EdgeInsets.all(8.0),
+    child: Text(
+      'clear all',
+      style: TextStyle(
+          fontSize: 14.0,
+          decoration: TextDecoration.underline,
+          color: Colors.blue[700]),
+    ),
+  ),
+  onCompleted: (String value) {
+    setState(() {
+      _code = value;
+    });
+  },
+  onEditing: (bool value) {
+    setState(() {
+      _onEditing = value;
+    });
+  },
+),
 ```
 
 ```dart
@@ -36,15 +54,17 @@ onEditing: (bool value) {
 
 ```dart
 Center(
-              child: (_onEditing != true)
-                  ? Text('Your code: $_code')
-                  : Text('Please enter full code'),
-            ),
+  child: (_onEditing != true)
+      ? Text('Your code: $_code')
+      : Text('Please enter full code'),
+),
 ```
+
+Full example is here https://github.com/awaik/flutter_verification_code/tree/master/example
 
 ## Showcase
 
 
-![Showcase|100x100, 10%](show_case1.gif)
+![Showcase|100x100, 10%](show_case_v2.gif)
 
 
