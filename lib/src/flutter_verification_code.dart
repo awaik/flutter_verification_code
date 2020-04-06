@@ -8,8 +8,10 @@ class VerificationCode extends StatefulWidget {
   final double itemSize;
   final BoxDecoration itemDecoration;
   final TextStyle textStyle;
-  //TODO autofus == true bug
+  //TODO autofocus == true bug
   final bool autofocus;
+  final Widget clearAll;
+
   VerificationCode({
     Key key,
     @required this.onCompleted,
@@ -20,8 +22,11 @@ class VerificationCode extends StatefulWidget {
     this.itemSize = 50,
     this.textStyle = const TextStyle(fontSize: 25.0),
     this.autofocus = false,
+    this.clearAll,
   })  : assert(length > 0),
         assert(itemSize > 0),
+        assert(onCompleted != null),
+        assert(onEditing != null),
         super(key: key);
 
   @override
@@ -121,9 +126,7 @@ class _VerificationCodeState extends State<VerificationCode> {
   void _prev(int index) {
     if (index > 0) {
       setState(() {
-        if (_listControllerText[index].text.isEmpty) {
-//          _listControllerText[index - 1].text = "";
-        }
+        if (_listControllerText[index].text.isEmpty) {}
         _currentIndex = index - 1;
       });
       FocusScope.of(context).requestFocus(FocusNode());
@@ -149,9 +152,32 @@ class _VerificationCodeState extends State<VerificationCode> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
         scrollDirection: Axis.horizontal,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: _buildListWidget(),
+        child: Column(
+          children: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: _buildListWidget(),
+            ),
+            widget.clearAll != null
+                ? _clearAllWidget(widget.clearAll)
+                : Container(),
+          ],
         ));
+  }
+
+  Widget _clearAllWidget(child) {
+    return GestureDetector(
+      onTap: () {
+        widget.onEditing(true);
+        for (var i = 0; i < widget.length; i++) {
+          _listControllerText[i].text = '';
+        }
+        setState(() {
+          _currentIndex = 0;
+          FocusScope.of(context).requestFocus(_listFocusNode[0]);
+        });
+      },
+      child: child,
+    );
   }
 }

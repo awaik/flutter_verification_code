@@ -47,6 +47,18 @@ class _MyHomePageState extends State<MyHomePage> {
             textStyle: TextStyle(fontSize: 20.0, color: Colors.red[900]),
             keyboardType: TextInputType.number,
             length: 4,
+            // clearAll is NOT required, you can delete it
+            // takes any widget, so you can implement your design
+            clearAll: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                'clear all',
+                style: TextStyle(
+                    fontSize: 14.0,
+                    decoration: TextDecoration.underline,
+                    color: Colors.blue[700]),
+              ),
+            ),
             onCompleted: (String value) {
               setState(() {
                 _code = value;

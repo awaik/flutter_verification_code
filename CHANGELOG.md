@@ -1,3 +1,22 @@
+# 0.2.0
+
+- Add option 'clearAll' - for clear all user input. https://github.com/awaik/flutter_verification_code/issues/6
+
+```
+// clearAll is NOT required, you can delete it
+// takes any widget, so you can implement your design
+clearAll: Padding(
+  padding: const EdgeInsets.all(8.0),
+  child: Text(
+    'clear all',
+    style: TextStyle(
+        fontSize: 14.0,
+        decoration: TextDecoration.underline,
+        color: Colors.blue[700]),
+  ),
+),
+```
+
 # 0.1.6+2
 
 - Change onCompleted, onEditing option to @required for fixing issue https://github.com/awaik/flutter_verification_code/issues/5
