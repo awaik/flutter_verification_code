@@ -17,6 +17,7 @@ import 'package:flutter_verification_code/flutter_verification_code.dart';
 ```dart
 VerificationCode(
   textStyle: TextStyle(fontSize: 20.0, color: Colors.red[900]),
+  underlineColor: Colors.amber,
   keyboardType: TextInputType.number,
   length: 4,
   // clearAll is NOT required, you can delete it

@@ -10,8 +10,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+          primarySwatch: Colors.green,
+          primaryColor: Colors.red,
+          accentColor: Colors.orange,
+          hintColor: Colors.green),
       home: MyHomePage(),
     );
   }
@@ -46,6 +48,8 @@ class _MyHomePageState extends State<MyHomePage> {
           VerificationCode(
             textStyle: TextStyle(fontSize: 20.0, color: Colors.red[900]),
             keyboardType: TextInputType.number,
+            // in case underline color is null it will use primaryColor: Colors.red from Theme
+            underlineColor: Colors.amber,
             length: 4,
             // clearAll is NOT required, you can delete it
             // takes any widget, so you can implement your design
@@ -68,6 +72,7 @@ class _MyHomePageState extends State<MyHomePage> {
               setState(() {
                 _onEditing = value;
               });
+              if (!_onEditing) FocusScope.of(context).unfocus();
             },
           ),
           Padding(

@@ -6,10 +6,13 @@ class VerificationCode extends StatefulWidget {
   final TextInputType keyboardType;
   final int length;
   final double itemSize;
-  final BoxDecoration itemDecoration;
+  // in case underline color is null it will use primaryColor from Theme
+  final Color underlineColor;
   final TextStyle textStyle;
   //TODO autofocus == true bug
   final bool autofocus;
+
+  ///takes any widget, display it, when tap on that element - clear all fields
   final Widget clearAll;
 
   VerificationCode({
@@ -18,7 +21,7 @@ class VerificationCode extends StatefulWidget {
     @required this.onEditing,
     this.keyboardType = TextInputType.number,
     this.length = 4,
-    this.itemDecoration,
+    this.underlineColor,
     this.itemSize = 50,
     this.textStyle = const TextStyle(fontSize: 25.0),
     this.autofocus = false,
@@ -64,12 +67,10 @@ class _VerificationCodeState extends State<VerificationCode> {
   }
 
   Widget _buildInputItem(int index) {
-    bool border = (widget.itemDecoration == null);
     return TextField(
       keyboardType: widget.keyboardType,
       maxLines: 1,
       maxLength: 1,
-//      enabled: _currentIndex == index,
       controller: _listControllerText[index],
       focusNode: _listFocusNode[index],
       showCursor: true,
@@ -79,11 +80,17 @@ class _VerificationCodeState extends State<VerificationCode> {
       autofocus: widget.autofocus,
       style: widget.textStyle,
       decoration: InputDecoration(
-          border: (border ? null : InputBorder.none),
-          counterText: "",
-          contentPadding: EdgeInsets.all(((widget.itemSize * 2) / 10)),
-          errorMaxLines: 1,
-          fillColor: Colors.black),
+        enabledBorder: UnderlineInputBorder(
+          borderSide: BorderSide(color: Colors.grey),
+        ),
+        focusedBorder: UnderlineInputBorder(
+          borderSide: BorderSide(
+              color: widget.underlineColor ?? Theme.of(context).primaryColor),
+        ),
+        counterText: "",
+        contentPadding: EdgeInsets.all(((widget.itemSize * 2) / 10)),
+        errorMaxLines: 1,
+      ),
 //      textInputAction: TextInputAction.previous,
       onChanged: (String value) {
         if ((_currentIndex + 1) == widget.length && value.length > 0) {
@@ -142,7 +149,6 @@ class _VerificationCodeState extends State<VerificationCode> {
           height: widget.itemSize,
           width: widget.itemSize,
           margin: EdgeInsets.only(left: left),
-          decoration: widget.itemDecoration,
           child: _buildInputItem(index)));
     }
     return listWidget;

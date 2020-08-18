@@ -1,3 +1,7 @@
+# 0.2.1
+
+- Add option 'underlineColor' - in case underline color is null it will use primaryColor from Theme
+
 # 0.2.0
 
 - Add option 'clearAll' - for clear all user input. https://github.com/awaik/flutter_verification_code/issues/6
