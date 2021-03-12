@@ -1,3 +1,7 @@
+# 1.0.0
+
+- Null safety and Flutter 2.0
+
 # 0.2.1
 
 - Add option 'underlineColor' - in case underline color is null it will use primaryColor from Theme

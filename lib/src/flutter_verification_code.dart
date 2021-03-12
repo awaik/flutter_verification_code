@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class VerificationCode extends StatefulWidget {
   final ValueChanged<String> onCompleted;
@@ -6,31 +7,42 @@ class VerificationCode extends StatefulWidget {
   final TextInputType keyboardType;
   final int length;
   final double itemSize;
-  // in case underline color is null it will use primaryColor from Theme
-  final Color underlineColor;
+  final Color? underlineColor;
   final TextStyle textStyle;
   //TODO autofocus == true bug
   final bool autofocus;
 
   ///takes any widget, display it, when tap on that element - clear all fields
-  final Widget clearAll;
+  final Widget? clearAll;
 
   VerificationCode({
-    Key key,
-    @required this.onCompleted,
-    @required this.onEditing,
+    /// is completed
+    required this.onCompleted,
+
+    /// is in process of editing
+    required this.onEditing,
+
+    /// keyboard type
     this.keyboardType = TextInputType.number,
+
+    /// quantity of boxes
     this.length = 4,
+
+    /// the color for underline, in case underline color is null it will use primaryColor from Theme
     this.underlineColor,
+
+    /// size of box for code
     this.itemSize = 50,
+
+    /// style of the input text
     this.textStyle = const TextStyle(fontSize: 25.0),
+
+    /// auto focus when screen appears
     this.autofocus = false,
+
+    /// clear all boxes
     this.clearAll,
-  })  : assert(length > 0),
-        assert(itemSize > 0),
-        assert(onCompleted != null),
-        assert(onEditing != null),
-        super(key: key);
+  });
 
   @override
   _VerificationCodeState createState() => _VerificationCodeState();
@@ -40,7 +52,7 @@ class _VerificationCodeState extends State<VerificationCode> {
   static final List<FocusNode> _listFocusNode = <FocusNode>[];
   final List<TextEditingController> _listControllerText =
       <TextEditingController>[];
-  List<String> _code = List();
+  List<String> _code = [];
   int _currentIndex = 0;
 
   @override
@@ -74,7 +86,7 @@ class _VerificationCodeState extends State<VerificationCode> {
       controller: _listControllerText[index],
       focusNode: _listFocusNode[index],
       showCursor: true,
-      maxLengthEnforced: true,
+      maxLengthEnforcement: MaxLengthEnforcement.enforced,
       autocorrect: false,
       textAlign: TextAlign.center,
       autofocus: widget.autofocus,
@@ -142,7 +154,7 @@ class _VerificationCodeState extends State<VerificationCode> {
   }
 
   List<Widget> _buildListWidget() {
-    List<Widget> listWidget = List();
+    List<Widget> listWidget = [];
     for (int index = 0; index < widget.length; index++) {
       double left = (index == 0) ? 0.0 : (widget.itemSize / 10);
       listWidget.add(Container(
