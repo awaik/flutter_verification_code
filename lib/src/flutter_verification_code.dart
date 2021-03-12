@@ -2,45 +2,42 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class VerificationCode extends StatefulWidget {
+  /// is completed
   final ValueChanged<String> onCompleted;
+
+  /// is in process of editing
   final ValueChanged<bool> onEditing;
+
+  /// keyboard type
   final TextInputType keyboardType;
+
+  /// quantity of boxes
   final int length;
+
+  /// size of box for code
   final double itemSize;
+
+  /// the color for underline, in case underline color is null it will use primaryColor from Theme
   final Color? underlineColor;
+
+  /// style of the input text
   final TextStyle textStyle;
-  //TODO autofocus == true bug
+
+  /// auto focus when screen appears
   final bool autofocus;
 
   ///takes any widget, display it, when tap on that element - clear all fields
   final Widget? clearAll;
 
   VerificationCode({
-    /// is completed
     required this.onCompleted,
-
-    /// is in process of editing
     required this.onEditing,
-
-    /// keyboard type
     this.keyboardType = TextInputType.number,
-
-    /// quantity of boxes
     this.length = 4,
-
-    /// the color for underline, in case underline color is null it will use primaryColor from Theme
-    this.underlineColor,
-
-    /// size of box for code
     this.itemSize = 50,
-
-    /// style of the input text
+    this.underlineColor,
     this.textStyle = const TextStyle(fontSize: 25.0),
-
-    /// auto focus when screen appears
     this.autofocus = false,
-
-    /// clear all boxes
     this.clearAll,
   });
 
