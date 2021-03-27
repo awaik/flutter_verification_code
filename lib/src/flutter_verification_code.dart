@@ -46,7 +46,7 @@ class VerificationCode extends StatefulWidget {
 }
 
 class _VerificationCodeState extends State<VerificationCode> {
-  static final List<FocusNode> _listFocusNode = <FocusNode>[];
+  final List<FocusNode> _listFocusNode = <FocusNode>[];
   final List<TextEditingController> _listControllerText =
       <TextEditingController>[];
   List<String> _code = [];

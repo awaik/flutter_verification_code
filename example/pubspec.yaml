@@ -12,7 +12,9 @@ dependencies:
 
   cupertino_icons: ^0.1.3
 
+#  flutter_verification_code:
   flutter_verification_code:
+    path: ../
 
 dev_dependencies:
   flutter_test:
