@@ -1,7 +1,7 @@
 name: flutter_verification_code
 homepage: https://github.com/awaik/flutter_verification_code.git
 description: A Flutter package that help you create a verification input.
-version: 1.0.0+1
+version: 1.0.1
 
 environment:
   sdk: '>=2.12.0 <3.0.0'

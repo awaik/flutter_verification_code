@@ -1,3 +1,7 @@
+# 1.0.1
+
+- Fixed bug with multiple widgets on the screen https://github.com/awaik/flutter_verification_code/issues/14 - removed static definition.
+
 # 1.0.0+1
 
 - Fixed docs
