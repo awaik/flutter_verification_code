@@ -20,6 +20,12 @@ class VerificationCode extends StatefulWidget {
   /// the color for underline, in case underline color is null it will use primaryColor from Theme
   final Color? underlineColor;
 
+  /// the color for underline when not focused, grey by default
+  final Color? underlineUnfocusedColor;
+
+  /// the line width for underline
+  final double? underlineWidth;
+
   /// style of the input text
   final TextStyle textStyle;
 
@@ -36,6 +42,8 @@ class VerificationCode extends StatefulWidget {
     this.length = 4,
     this.itemSize = 50,
     this.underlineColor,
+    this.underlineUnfocusedColor,
+    this.underlineWidth,
     this.textStyle = const TextStyle(fontSize: 25.0),
     this.autofocus = false,
     this.clearAll,
@@ -90,11 +98,16 @@ class _VerificationCodeState extends State<VerificationCode> {
       style: widget.textStyle,
       decoration: InputDecoration(
         enabledBorder: UnderlineInputBorder(
-          borderSide: BorderSide(color: Colors.grey),
+          borderSide: BorderSide(
+            color: widget.underlineUnfocusedColor ?? Colors.grey,
+            width: widget.underlineWidth ?? 1,
+          ),
         ),
         focusedBorder: UnderlineInputBorder(
           borderSide: BorderSide(
-              color: widget.underlineColor ?? Theme.of(context).primaryColor),
+            color: widget.underlineColor ?? Theme.of(context).primaryColor,
+            width: widget.underlineWidth ?? 1,
+          ),
         ),
         counterText: "",
         contentPadding: EdgeInsets.all(((widget.itemSize * 2) / 10)),
