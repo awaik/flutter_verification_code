@@ -1,3 +1,8 @@
+# 1.0.2
+
+- can remove after fill the textfield, made by https://github.com/manofi21
+- Add underlineUnfocusedColor to change color of boxes without focus and underlineWidth to change line width of the underline, made by https://github.com/tomaash 
+
 # 1.0.1
 
 - Fixed bug with multiple widgets on the screen https://github.com/awaik/flutter_verification_code/issues/14 - removed static definition.

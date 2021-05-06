@@ -35,6 +35,9 @@ class VerificationCode extends StatefulWidget {
   ///takes any widget, display it, when tap on that element - clear all fields
   final Widget? clearAll;
 
+  /// to secure the TextField
+  final bool isSecure;
+
   VerificationCode({
     required this.onCompleted,
     required this.onEditing,
@@ -47,6 +50,7 @@ class VerificationCode extends StatefulWidget {
     this.textStyle = const TextStyle(fontSize: 25.0),
     this.autofocus = false,
     this.clearAll,
+    this.isSecure = false,
   });
 
   @override
@@ -87,7 +91,7 @@ class _VerificationCodeState extends State<VerificationCode> {
     return TextField(
       keyboardType: widget.keyboardType,
       maxLines: 1,
-      maxLength: 1,
+      maxLength: index == widget.length - 1 ? 1 : 2,
       controller: _listControllerText[index],
       focusNode: _listFocusNode[index],
       showCursor: true,
@@ -121,17 +125,20 @@ class _VerificationCodeState extends State<VerificationCode> {
           widget.onEditing(true);
         }
 
-        if (value.length > 0 && index < widget.length ||
-            index == 0 && value.isNotEmpty) {
-          if (index == widget.length - 1) {
-            widget.onCompleted(_getInputVerify());
-            return;
-          }
-          if (_listControllerText[index + 1].value.text.isEmpty) {
-            _listControllerText[index + 1].value = TextEditingValue(text: "");
-          }
+        if (value.length > 0 && index < widget.length || index == 0) {
           if (index < widget.length - 1) {
-            _next(index);
+            if (value.length == 2 && index != widget.length - 1) {
+              _listControllerText[index].value =
+                  TextEditingValue(text: value[0]);
+              _next(index);
+              _listControllerText[index + 1].value =
+                  TextEditingValue(text: value[1]);
+            }
+            if (_listControllerText[widget.length - 1].value.text.length == 1 &&
+                _getInputVerify().length == widget.length) {
+              widget.onEditing(false);
+              widget.onCompleted(_getInputVerify());
+            }
           }
 
           return;
