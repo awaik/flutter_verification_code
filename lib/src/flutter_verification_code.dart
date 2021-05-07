@@ -23,7 +23,7 @@ class VerificationCode extends StatefulWidget {
   /// the color for underline when not focused, grey by default
   final Color? underlineUnfocusedColor;
   
-  /// the color for text field background
+  /// the color for TextField background
   final Color? fillColor;
 
   /// the line width for underline
