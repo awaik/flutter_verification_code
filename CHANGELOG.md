@@ -1,3 +1,7 @@
+# 1.0.3
+
+- Add fillColor option.
+
 # 1.0.2
 
 - can remove after fill the textfield, made by https://github.com/manofi21
