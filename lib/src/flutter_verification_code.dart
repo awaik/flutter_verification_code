@@ -22,7 +22,7 @@ class VerificationCode extends StatefulWidget {
 
   /// the color for underline when not focused, grey by default
   final Color? underlineUnfocusedColor;
-  
+
   /// the color for TextField background
   final Color? fillColor;
 
@@ -94,6 +94,9 @@ class _VerificationCodeState extends State<VerificationCode> {
   Widget _buildInputItem(int index) {
     return TextField(
       keyboardType: widget.keyboardType,
+      inputFormatters: <TextInputFormatter>[
+        FilteringTextInputFormatter.digitsOnly
+      ],
       maxLines: 1,
       maxLength: index == widget.length - 1 ? 1 : 2,
       controller: _listControllerText[index],
