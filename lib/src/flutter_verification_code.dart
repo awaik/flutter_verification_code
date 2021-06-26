@@ -22,7 +22,7 @@ class VerificationCode extends StatefulWidget {
 
   /// the color for underline when not focused, grey by default
   final Color? underlineUnfocusedColor;
-  
+
   /// the color for TextField background
   final Color? fillColor;
 
@@ -41,6 +41,9 @@ class VerificationCode extends StatefulWidget {
   /// to secure the TextField
   final bool isSecure;
 
+  ///accept only digit inputs from keyboard
+  final bool digitsOnly;
+
   VerificationCode({
     required this.onCompleted,
     required this.onEditing,
@@ -55,6 +58,7 @@ class VerificationCode extends StatefulWidget {
     this.autofocus = false,
     this.clearAll,
     this.isSecure = false,
+    this.digitsOnly = false,
   });
 
   @override
@@ -94,6 +98,9 @@ class _VerificationCodeState extends State<VerificationCode> {
   Widget _buildInputItem(int index) {
     return TextField(
       keyboardType: widget.keyboardType,
+      inputFormatters: widget.digitsOnly
+          ? <TextInputFormatter>[FilteringTextInputFormatter.digitsOnly]
+          : null,
       maxLines: 1,
       maxLength: index == widget.length - 1 ? 1 : 2,
       controller: _listControllerText[index],
