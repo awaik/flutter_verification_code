@@ -1,3 +1,7 @@
+# 1.0.4
+
+- Option to allow only number input from keyboard(flutter web) (Changes made by https://github.com/rajrushilmakkar)
+
 # 1.0.3
 
 - Add fillColor option.
