@@ -14,3 +14,7 @@ pubspec.lock
 # Directory created by dartdoc
 # If you don't generate documentation locally you can remove this line.
 doc/api/
+
+# Flutter generated files
+example/ios/Flutter/flutter_export_environment.sh
+example/ios/Runner.xcodeproj/project.pbxproj
