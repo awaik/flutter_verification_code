@@ -6,6 +6,8 @@
 
 - Added state change in case user delete char after complete fill, take a look an example on [Stackoverflow](https://stackoverflow.com/questions/59005381/how-to-know-when-user-delete-the-input-in-verificationcodeinput-flutter/59006077#59006077)
 
+- With version 1.1.0 supports copy/paste of entire code
+
 After install, in your Dart code, you can use:
 
 ```dart
