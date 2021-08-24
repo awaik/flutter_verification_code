@@ -1,6 +1,6 @@
 # 1.1.0
 
-- Support copy/paste of entire code) (Changes made by https://github.com/yonatann)
+- Support copy/paste of entire code. (Changes made by https://github.com/yonatann)
 
 # 1.0.4
 
