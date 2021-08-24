@@ -1,6 +1,7 @@
 # See https://www.dartlang.org/guides/libraries/private-files
 .idea/
 .fvm/
+.vscode/
 
 # Files and directories created by pub
 .dart_tool/
@@ -13,3 +14,6 @@ pubspec.lock
 # Directory created by dartdoc
 # If you don't generate documentation locally you can remove this line.
 doc/api/
+
+# Flutter generated files
+example/ios/Flutter/flutter_export_environment.sh

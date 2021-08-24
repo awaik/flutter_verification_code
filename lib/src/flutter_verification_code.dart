@@ -102,7 +102,7 @@ class _VerificationCodeState extends State<VerificationCode> {
           ? <TextInputFormatter>[FilteringTextInputFormatter.digitsOnly]
           : null,
       maxLines: 1,
-      maxLength: index == widget.length - 1 ? 1 : 2,
+      maxLength: widget.length - index,
       controller: _listControllerText[index],
       focusNode: _listFocusNode[index],
       showCursor: true,
@@ -137,26 +137,27 @@ class _VerificationCodeState extends State<VerificationCode> {
           widget.onEditing(true);
         }
 
-        if (value.length > 0 && index < widget.length || index == 0) {
-          if (index < widget.length - 1) {
-            if (value.length == 2 && index != widget.length - 1) {
-              _listControllerText[index].value =
-                  TextEditingValue(text: value[0]);
-              _next(index);
-              _listControllerText[index + 1].value =
-                  TextEditingValue(text: value[1]);
-            }
-            if (_listControllerText[widget.length - 1].value.text.length == 1 &&
-                _getInputVerify().length == widget.length) {
-              widget.onEditing(false);
-              widget.onCompleted(_getInputVerify());
-            }
-          }
-
-          return;
-        }
         if (value.length == 0 && index >= 0) {
           _prev(index);
+          return;
+        }
+
+        if (value.length > 0) {
+          String _value = value;
+          int _index = index;
+
+          while (_value.length > 0 && _index < widget.length) {
+            _listControllerText[_index].value =
+                TextEditingValue(text: _value[0]);
+            _next(_index++);
+            _value = _value.substring(1);
+          }
+
+          if (_listControllerText[widget.length - 1].value.text.length == 1 &&
+              _getInputVerify().length == widget.length) {
+            widget.onEditing(false);
+            widget.onCompleted(_getInputVerify());
+          }
         }
       },
     );
