@@ -67,6 +67,7 @@ class VerificationCode extends StatefulWidget {
 
 class _VerificationCodeState extends State<VerificationCode> {
   final List<FocusNode> _listFocusNode = <FocusNode>[];
+  final List<FocusNode> _listFocusNodeKeyListener = <FocusNode>[];
   final List<TextEditingController> _listControllerText =
       <TextEditingController>[];
   List<String> _code = [];
@@ -75,8 +76,10 @@ class _VerificationCodeState extends State<VerificationCode> {
   @override
   void initState() {
     _listFocusNode.clear();
+    _listFocusNodeKeyListener.clear();
     for (var i = 0; i < widget.length; i++) {
       _listFocusNode.add(FocusNode());
+      _listFocusNodeKeyListener.add(FocusNode());
       _listControllerText.add(TextEditingController());
       _code.add('');
     }
@@ -96,70 +99,82 @@ class _VerificationCodeState extends State<VerificationCode> {
   }
 
   Widget _buildInputItem(int index) {
-    return TextField(
-      keyboardType: widget.keyboardType,
-      inputFormatters: widget.digitsOnly
-          ? <TextInputFormatter>[FilteringTextInputFormatter.digitsOnly]
-          : null,
-      maxLines: 1,
-      maxLength: widget.length - index,
-      controller: _listControllerText[index],
-      focusNode: _listFocusNode[index],
-      showCursor: true,
-      maxLengthEnforcement: MaxLengthEnforcement.enforced,
-      autocorrect: false,
-      textAlign: TextAlign.center,
-      autofocus: widget.autofocus,
-      style: widget.textStyle,
-      decoration: InputDecoration(
-        fillColor: widget.fillColor,
-        enabledBorder: UnderlineInputBorder(
-          borderSide: BorderSide(
-            color: widget.underlineUnfocusedColor ?? Colors.grey,
-            width: widget.underlineWidth ?? 1,
-          ),
-        ),
-        focusedBorder: UnderlineInputBorder(
-          borderSide: BorderSide(
-            color: widget.underlineColor ?? Theme.of(context).primaryColor,
-            width: widget.underlineWidth ?? 1,
-          ),
-        ),
-        counterText: "",
-        contentPadding: EdgeInsets.all(((widget.itemSize * 2) / 10)),
-        errorMaxLines: 1,
-      ),
-//      textInputAction: TextInputAction.previous,
-      onChanged: (String value) {
-        if ((_currentIndex + 1) == widget.length && value.length > 0) {
-          widget.onEditing(false);
-        } else {
-          widget.onEditing(true);
-        }
-
-        if (value.length == 0 && index >= 0) {
-          _prev(index);
-          return;
-        }
-
-        if (value.length > 0) {
-          String _value = value;
-          int _index = index;
-
-          while (_value.length > 0 && _index < widget.length) {
-            _listControllerText[_index].value =
-                TextEditingValue(text: _value[0]);
-            _next(_index++);
-            _value = _value.substring(1);
-          }
-
-          if (_listControllerText[widget.length - 1].value.text.length == 1 &&
-              _getInputVerify().length == widget.length) {
-            widget.onEditing(false);
-            widget.onCompleted(_getInputVerify());
+    return RawKeyboardListener(
+      focusNode: _listFocusNodeKeyListener[index],
+      onKey: (event) {
+        if (event.runtimeType == RawKeyUpEvent) {
+          if (event.data.logicalKey == LogicalKeyboardKey.arrowLeft) {
+            _prev(index);
+          } else if (event.data.logicalKey == LogicalKeyboardKey.arrowRight) {
+            _next(index);
           }
         }
       },
+      child: TextField(
+        keyboardType: widget.keyboardType,
+        inputFormatters: widget.digitsOnly
+            ? <TextInputFormatter>[FilteringTextInputFormatter.digitsOnly]
+            : null,
+        maxLines: 1,
+        maxLength: widget.length - index,
+        controller: _listControllerText[index],
+        focusNode: _listFocusNode[index],
+        showCursor: true,
+        maxLengthEnforcement: MaxLengthEnforcement.enforced,
+        autocorrect: false,
+        textAlign: TextAlign.center,
+        autofocus: widget.autofocus,
+        style: widget.textStyle,
+        decoration: InputDecoration(
+          fillColor: widget.fillColor,
+          enabledBorder: UnderlineInputBorder(
+            borderSide: BorderSide(
+              color: widget.underlineUnfocusedColor ?? Colors.grey,
+              width: widget.underlineWidth ?? 1,
+            ),
+          ),
+          focusedBorder: UnderlineInputBorder(
+            borderSide: BorderSide(
+              color: widget.underlineColor ?? Theme.of(context).primaryColor,
+              width: widget.underlineWidth ?? 1,
+            ),
+          ),
+          counterText: "",
+          contentPadding: EdgeInsets.all(((widget.itemSize * 2) / 10)),
+          errorMaxLines: 1,
+        ),
+        //      textInputAction: TextInputAction.previous,
+        onChanged: (String value) {
+          if ((_currentIndex + 1) == widget.length && value.length > 0) {
+            widget.onEditing(false);
+          } else {
+            widget.onEditing(true);
+          }
+
+          if (value.length == 0 && index >= 0) {
+            _prev(index);
+            return;
+          }
+
+          if (value.length > 0) {
+            String _value = value;
+            int _index = index;
+
+            while (_value.length > 0 && _index < widget.length) {
+              _listControllerText[_index].value =
+                  TextEditingValue(text: _value[0]);
+              _next(_index++);
+              _value = _value.substring(1);
+            }
+
+            if (_listControllerText[widget.length - 1].value.text.length == 1 &&
+                _getInputVerify().length == widget.length) {
+              widget.onEditing(false);
+              widget.onCompleted(_getInputVerify());
+            }
+          }
+        },
+      ),
     );
   }
 
