@@ -1,5 +1,9 @@
 # 1.1.0
 
+- Added option to move with left and right arrow keys. (Changes made by https://github.com/rajrushilmakkar)
+
+# 1.1.0
+
 - Support copy/paste of entire code. (Changes made by https://github.com/yonatann)
 
 # 1.0.4
