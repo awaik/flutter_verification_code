@@ -14,6 +14,9 @@ class VerificationCode extends StatefulWidget {
   /// quantity of boxes
   final int length;
 
+  /// cursorColor :)
+  final Color? cursorColor;
+
   /// size of box for code
   final double itemSize;
 
@@ -49,6 +52,7 @@ class VerificationCode extends StatefulWidget {
     required this.onEditing,
     this.keyboardType = TextInputType.number,
     this.length = 4,
+    this.cursorColor,
     this.itemSize = 50,
     this.underlineColor,
     this.underlineUnfocusedColor,
@@ -68,8 +72,7 @@ class VerificationCode extends StatefulWidget {
 class _VerificationCodeState extends State<VerificationCode> {
   final List<FocusNode> _listFocusNode = <FocusNode>[];
   final List<FocusNode> _listFocusNodeKeyListener = <FocusNode>[];
-  final List<TextEditingController> _listControllerText =
-      <TextEditingController>[];
+  final List<TextEditingController> _listControllerText = <TextEditingController>[];
   List<String> _code = [];
   int _currentIndex = 0;
 
@@ -112,14 +115,13 @@ class _VerificationCodeState extends State<VerificationCode> {
       },
       child: TextField(
         keyboardType: widget.keyboardType,
-        inputFormatters: widget.digitsOnly
-            ? <TextInputFormatter>[FilteringTextInputFormatter.digitsOnly]
-            : null,
+        inputFormatters: widget.digitsOnly ? <TextInputFormatter>[FilteringTextInputFormatter.digitsOnly] : null,
         maxLines: 1,
         maxLength: widget.length - index,
         controller: _listControllerText[index],
         focusNode: _listFocusNode[index],
         showCursor: true,
+        cursorColor: widget.cursorColor,
         maxLengthEnforcement: MaxLengthEnforcement.enforced,
         autocorrect: false,
         textAlign: TextAlign.center,
@@ -161,8 +163,7 @@ class _VerificationCodeState extends State<VerificationCode> {
             int _index = index;
 
             while (_value.length > 0 && _index < widget.length) {
-              _listControllerText[_index].value =
-                  TextEditingValue(text: _value[0]);
+              _listControllerText[_index].value = TextEditingValue(text: _value[0]);
               _next(_index++);
               _value = _value.substring(1);
             }
@@ -221,9 +222,7 @@ class _VerificationCodeState extends State<VerificationCode> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: _buildListWidget(),
             ),
-            widget.clearAll != null
-                ? _clearAllWidget(widget.clearAll)
-                : Container(),
+            widget.clearAll != null ? _clearAllWidget(widget.clearAll) : Container(),
           ],
         ));
   }

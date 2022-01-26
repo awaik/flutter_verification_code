@@ -1,3 +1,7 @@
+# 1.1.2
+
+- Added cursorColor property. If this is null it will default to the ambient.
+
 # 1.1.1
 
 - Added option to move with left and right arrow keys. (Changes made by https://github.com/rajrushilmakkar)
