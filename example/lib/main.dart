@@ -10,7 +10,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-          primarySwatch: Colors.green, primaryColor: Colors.red, accentColor: Colors.orange, hintColor: Colors.green),
+          primarySwatch: Colors.green,
+          primaryColor: Colors.red,
+          accentColor: Colors.orange,
+          hintColor: Colors.green),
       home: MyHomePage(),
     );
   }
@@ -43,18 +46,26 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ),
           VerificationCode(
-            textStyle: TextStyle(fontSize: 20.0, color: Colors.red[900]),
+            textStyle: Theme.of(context)
+                .textTheme
+                .bodyText2
+                .copyWith(color: Theme.of(context).primaryColor),
             keyboardType: TextInputType.number,
-            underlineColor: Colors.amber, // If this is null it will use primaryColor: Colors.red from Theme
+            underlineColor: Colors
+                .amber, // If this is null it will use primaryColor: Colors.red from Theme
             length: 4,
-            cursorColor: Colors.blue, // If this is null it will default to the ambient
+            cursorColor:
+                Colors.blue, // If this is null it will default to the ambient
             // clearAll is NOT required, you can delete it
             // takes any widget, so you can implement your design
             clearAll: Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
                 'clear all',
-                style: TextStyle(fontSize: 14.0, decoration: TextDecoration.underline, color: Colors.blue[700]),
+                style: TextStyle(
+                    fontSize: 14.0,
+                    decoration: TextDecoration.underline,
+                    color: Colors.blue[700]),
               ),
             ),
             onCompleted: (String value) {
@@ -72,7 +83,9 @@ class _MyHomePageState extends State<MyHomePage> {
           Padding(
             padding: EdgeInsets.all(8.0),
             child: Center(
-              child: _onEditing ? Text('Please enter full code') : Text('Your code: $_code'),
+              child: _onEditing
+                  ? Text('Please enter full code')
+                  : Text('Your code: $_code'),
             ),
           )
         ],

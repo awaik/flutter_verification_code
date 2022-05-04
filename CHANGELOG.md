@@ -1,3 +1,11 @@
+# 1.1.3
+
+- Added fullBorder property. If true - displays boxes instead of underlined placeholders.
+- Added final `Stream<bool>? pasteStream;` property. When it receives true, pastes the
+clipboard content. With this property is possible to add button or another functionality
+outside this widget, that initiates pasting from clipboard.
+Look animated example in the readme.md
+
 # 1.1.2
 
 - Added cursorColor property. If this is null it will default to the ambient.

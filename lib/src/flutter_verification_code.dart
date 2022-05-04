@@ -26,6 +26,9 @@ class VerificationCode extends StatefulWidget {
   /// the color for underline when not focused, grey by default
   final Color? underlineUnfocusedColor;
 
+  /// display rectangular border instead of underlined
+  final bool fullBorder;
+
   /// the color for TextField background
   final Color? fillColor;
 
@@ -41,13 +44,17 @@ class VerificationCode extends StatefulWidget {
   ///takes any widget, display it, when tap on that element - clear all fields
   final Widget? clearAll;
 
+  ///display button for the paste from clipboard functionality
+  final Stream<bool>? pasteStream;
+
   /// to secure the TextField
   final bool isSecure;
 
   ///accept only digit inputs from keyboard
   final bool digitsOnly;
 
-  VerificationCode({
+  const VerificationCode({
+    Key? key,
     required this.onCompleted,
     required this.onEditing,
     this.keyboardType = TextInputType.number,
@@ -56,14 +63,16 @@ class VerificationCode extends StatefulWidget {
     this.itemSize = 50,
     this.underlineColor,
     this.underlineUnfocusedColor,
+    this.fullBorder = false,
     this.fillColor,
     this.underlineWidth,
     this.textStyle = const TextStyle(fontSize: 25.0),
     this.autofocus = false,
     this.clearAll,
+    this.pasteStream,
     this.isSecure = false,
     this.digitsOnly = false,
-  });
+  }) : super(key: key);
 
   @override
   _VerificationCodeState createState() => _VerificationCodeState();
@@ -72,8 +81,9 @@ class VerificationCode extends StatefulWidget {
 class _VerificationCodeState extends State<VerificationCode> {
   final List<FocusNode> _listFocusNode = <FocusNode>[];
   final List<FocusNode> _listFocusNodeKeyListener = <FocusNode>[];
-  final List<TextEditingController> _listControllerText = <TextEditingController>[];
-  List<String> _code = [];
+  final List<TextEditingController> _listControllerText =
+      <TextEditingController>[];
+  final List<String> _code = [];
   int _currentIndex = 0;
 
   @override
@@ -85,6 +95,13 @@ class _VerificationCodeState extends State<VerificationCode> {
       _listFocusNodeKeyListener.add(FocusNode());
       _listControllerText.add(TextEditingController());
       _code.add('');
+    }
+    if (widget.pasteStream != null) {
+      widget.pasteStream!.listen((val) {
+        if (val) {
+          _pasteFromClipboard();
+        }
+      });
     }
     super.initState();
   }
@@ -113,6 +130,44 @@ class _VerificationCodeState extends State<VerificationCode> {
   }
 
   Widget _buildInputItem(int index) {
+    final underlinedDecoration = InputDecoration(
+      fillColor: widget.fillColor,
+      enabledBorder: UnderlineInputBorder(
+        borderSide: BorderSide(
+          color: widget.underlineUnfocusedColor ?? Colors.grey,
+          width: widget.underlineWidth ?? 1,
+        ),
+      ),
+      focusedBorder: UnderlineInputBorder(
+        borderSide: BorderSide(
+          color: widget.underlineColor ?? Theme.of(context).primaryColor,
+          width: widget.underlineWidth ?? 1,
+        ),
+      ),
+      counterText: "",
+      contentPadding: EdgeInsets.all(((widget.itemSize * 2) / 10)),
+      errorMaxLines: 1,
+    );
+
+    final fullDecoration = InputDecoration(
+      fillColor: widget.fillColor,
+      enabledBorder: OutlineInputBorder(
+        borderSide: BorderSide(
+          color: widget.underlineUnfocusedColor ?? Colors.grey,
+          width: widget.underlineWidth ?? 1,
+        ),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderSide: BorderSide(
+          color: widget.underlineColor ?? Theme.of(context).primaryColor,
+          width: widget.underlineWidth ?? 1,
+        ),
+      ),
+      counterText: "",
+      contentPadding: EdgeInsets.all(((widget.itemSize * 2) / 10)),
+      errorMaxLines: 1,
+    );
+
     return RawKeyboardListener(
       focusNode: _listFocusNodeKeyListener[index],
       onKey: (event) {
@@ -126,7 +181,9 @@ class _VerificationCodeState extends State<VerificationCode> {
       },
       child: TextField(
         keyboardType: widget.keyboardType,
-        inputFormatters: widget.digitsOnly ? <TextInputFormatter>[FilteringTextInputFormatter.digitsOnly] : null,
+        inputFormatters: widget.digitsOnly
+            ? <TextInputFormatter>[FilteringTextInputFormatter.digitsOnly]
+            : null,
         maxLines: 1,
         maxLength: widget.length - index,
         controller: _listControllerText[index],
@@ -138,43 +195,27 @@ class _VerificationCodeState extends State<VerificationCode> {
         textAlign: TextAlign.center,
         autofocus: widget.autofocus,
         style: widget.textStyle,
-        decoration: InputDecoration(
-          fillColor: widget.fillColor,
-          enabledBorder: UnderlineInputBorder(
-            borderSide: BorderSide(
-              color: widget.underlineUnfocusedColor ?? Colors.grey,
-              width: widget.underlineWidth ?? 1,
-            ),
-          ),
-          focusedBorder: UnderlineInputBorder(
-            borderSide: BorderSide(
-              color: widget.underlineColor ?? Theme.of(context).primaryColor,
-              width: widget.underlineWidth ?? 1,
-            ),
-          ),
-          counterText: "",
-          contentPadding: EdgeInsets.all(((widget.itemSize * 2) / 10)),
-          errorMaxLines: 1,
-        ),
+        decoration: widget.fullBorder ? fullDecoration : underlinedDecoration,
         //      textInputAction: TextInputAction.previous,
         onChanged: (String value) {
-          if ((_currentIndex + 1) == widget.length && value.length > 0) {
+          if ((_currentIndex + 1) == widget.length && value.isNotEmpty) {
             widget.onEditing(false);
           } else {
             widget.onEditing(true);
           }
 
-          if (value.length == 0 && index >= 0) {
+          if (value.isEmpty && index >= 0) {
             _prev(index);
             return;
           }
 
-          if (value.length > 0) {
+          if (value.isNotEmpty) {
             String _value = value;
             int _index = index;
 
-            while (_value.length > 0 && _index < widget.length) {
-              _listControllerText[_index].value = TextEditingValue(text: _value[0]);
+            while (_value.isNotEmpty && _index < widget.length) {
+              _listControllerText[_index].value =
+                  TextEditingValue(text: _value[0]);
               _next(_index++);
               _value = _value.substring(1);
             }
@@ -233,13 +274,39 @@ class _VerificationCodeState extends State<VerificationCode> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: _buildListWidget(),
             ),
-            widget.clearAll != null ? _clearAllWidget(widget.clearAll) : Container(),
+            widget.clearAll != null
+                ? _clearAllWidget(widget.clearAll)
+                : const SizedBox(),
           ],
         ));
   }
 
+  void _pasteFromClipboard() async {
+    final txt = await _fromClipboard();
+    final int txtLength = txt.length;
+
+    widget.onEditing(true);
+    for (var i = 0; i < widget.length; i++) {
+      _listControllerText[i].text = txtLength > i ? txt[i] : '';
+    }
+    setState(() {
+      _currentIndex = widget.length - 1;
+      if (txtLength >= widget.length) {
+        widget.onCompleted(_getInputVerify());
+      }
+      FocusScope.of(context).requestFocus(_listFocusNode[widget.length - 1]);
+    });
+    widget.onEditing(false);
+  }
+
+  Future<String> _fromClipboard() async {
+    ClipboardData? cdata = await Clipboard.getData(Clipboard.kTextPlain);
+    return cdata?.text ?? '';
+  }
+
   Widget _clearAllWidget(child) {
     return GestureDetector(
+      behavior: HitTestBehavior.opaque,
       onTap: () {
         widget.onEditing(true);
         for (var i = 0; i < widget.length; i++) {
@@ -249,6 +316,7 @@ class _VerificationCodeState extends State<VerificationCode> {
           _currentIndex = 0;
           FocusScope.of(context).requestFocus(_listFocusNode[0]);
         });
+        widget.onEditing(false);
       },
       child: child,
     );
