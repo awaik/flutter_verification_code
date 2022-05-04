@@ -89,6 +89,17 @@ class _VerificationCodeState extends State<VerificationCode> {
     super.initState();
   }
 
+  @override
+  void dispose() {
+    for (final val in _listControllerText) {
+      val.dispose();
+    }
+    for (final val in _listFocusNode) {
+      val.dispose();
+    }
+    super.dispose();
+  }
+
   String _getInputVerify() {
     String verifyCode = "";
     for (var i = 0; i < widget.length; i++) {

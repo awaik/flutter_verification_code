@@ -67,6 +67,6 @@ Full example is here https://github.com/awaik/flutter_verification_code/tree/mas
 ## Showcase
 
 
-![Showcase|100x100, 10%](show_case_v2.gif)
+![Image|100x100, 10%](show_case_v2.gif)
 
 
