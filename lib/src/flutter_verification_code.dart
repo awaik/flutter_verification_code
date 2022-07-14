@@ -194,6 +194,7 @@ class _VerificationCodeState extends State<VerificationCode> {
         autocorrect: false,
         textAlign: TextAlign.center,
         autofocus: widget.autofocus,
+        obscureText: widget.isSecure,
         style: widget.textStyle,
         decoration: widget.fullBorder ? fullDecoration : underlinedDecoration,
         //      textInputAction: TextInputAction.previous,
