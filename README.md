@@ -70,4 +70,9 @@ Full example is here https://github.com/awaik/flutter_verification_code/tree/mas
 
 ![Image|100x100, 10%](show_case_v2.gif)
 
+## Credits
+
+InstaImageViewer is a project by [Agoradesk](https://agoradesk.com/), P2P cryptocurrency trading platform.
+Created by the team behind LocalMonero, the biggest and most trusted Monero P2P trading platform.
+
 
