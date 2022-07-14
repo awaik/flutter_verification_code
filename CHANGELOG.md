@@ -1,3 +1,8 @@
+# 1.1.3+1
+
+- Fixed `isSecure` parameter, thanks to https://github.com/heltonrosa
+
+
 # 1.1.3
 
 - Added fullBorder property. If true - displays boxes instead of underlined placeholders.
