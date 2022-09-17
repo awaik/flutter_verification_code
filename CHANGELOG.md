@@ -1,3 +1,8 @@
+# 1.1.4
+
+- Added `margin` and `padding` parameters https://github.com/awaik/flutter_verification_code/issues/35
+- Example updated
+
 # 1.1.3+1
 
 - Fixed `isSecure` parameter, thanks to https://github.com/heltonrosa
