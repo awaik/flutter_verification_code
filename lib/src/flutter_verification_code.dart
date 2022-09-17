@@ -89,7 +89,8 @@ class VerificationCode extends StatefulWidget {
 class _VerificationCodeState extends State<VerificationCode> {
   final List<FocusNode> _listFocusNode = <FocusNode>[];
   final List<FocusNode> _listFocusNodeKeyListener = <FocusNode>[];
-  final List<TextEditingController> _listControllerText = <TextEditingController>[];
+  final List<TextEditingController> _listControllerText =
+      <TextEditingController>[];
   final List<String> _code = [];
   int _currentIndex = 0;
 
@@ -137,7 +138,8 @@ class _VerificationCodeState extends State<VerificationCode> {
   }
 
   Widget _buildInputItem(int index) {
-    final padding = widget.padding ?? EdgeInsets.all(((widget.itemSize * 2) / 10));
+    final padding =
+        widget.padding ?? EdgeInsets.all(((widget.itemSize * 2) / 10));
 
     final underlinedDecoration = InputDecoration(
       fillColor: widget.fillColor,
@@ -190,7 +192,9 @@ class _VerificationCodeState extends State<VerificationCode> {
       },
       child: TextField(
         keyboardType: widget.keyboardType,
-        inputFormatters: widget.digitsOnly ? <TextInputFormatter>[FilteringTextInputFormatter.digitsOnly] : null,
+        inputFormatters: widget.digitsOnly
+            ? <TextInputFormatter>[FilteringTextInputFormatter.digitsOnly]
+            : null,
         maxLines: 1,
         maxLength: widget.length - index,
         controller: _listControllerText[index],
@@ -291,7 +295,9 @@ class _VerificationCodeState extends State<VerificationCode> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: _buildListWidget(),
             ),
-            widget.clearAll != null ? _clearAllWidget(widget.clearAll) : const SizedBox(),
+            widget.clearAll != null
+                ? _clearAllWidget(widget.clearAll)
+                : const SizedBox(),
           ],
         ));
   }

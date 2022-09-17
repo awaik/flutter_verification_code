@@ -1,3 +1,7 @@
+# 1.1.5
+
+- Fixed https://github.com/awaik/flutter_verification_code/issues/33, thank to https://github.com/Xorn4400
+
 # 1.1.4
 
 - Added `margin` and `padding` parameters https://github.com/awaik/flutter_verification_code/issues/35
