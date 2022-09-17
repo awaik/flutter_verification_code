@@ -53,6 +53,12 @@ class VerificationCode extends StatefulWidget {
   ///accept only digit inputs from keyboard
   final bool digitsOnly;
 
+  /// padding between boxes
+  final EdgeInsets margin;
+
+  /// padding inside boxes
+  final EdgeInsets? padding;
+
   const VerificationCode({
     Key? key,
     required this.onCompleted,
@@ -72,6 +78,8 @@ class VerificationCode extends StatefulWidget {
     this.pasteStream,
     this.isSecure = false,
     this.digitsOnly = false,
+    this.margin = EdgeInsets.zero,
+    this.padding,
   }) : super(key: key);
 
   @override
@@ -81,8 +89,7 @@ class VerificationCode extends StatefulWidget {
 class _VerificationCodeState extends State<VerificationCode> {
   final List<FocusNode> _listFocusNode = <FocusNode>[];
   final List<FocusNode> _listFocusNodeKeyListener = <FocusNode>[];
-  final List<TextEditingController> _listControllerText =
-      <TextEditingController>[];
+  final List<TextEditingController> _listControllerText = <TextEditingController>[];
   final List<String> _code = [];
   int _currentIndex = 0;
 
@@ -130,6 +137,8 @@ class _VerificationCodeState extends State<VerificationCode> {
   }
 
   Widget _buildInputItem(int index) {
+    final padding = widget.padding ?? EdgeInsets.all(((widget.itemSize * 2) / 10));
+
     final underlinedDecoration = InputDecoration(
       fillColor: widget.fillColor,
       enabledBorder: UnderlineInputBorder(
@@ -145,7 +154,7 @@ class _VerificationCodeState extends State<VerificationCode> {
         ),
       ),
       counterText: "",
-      contentPadding: EdgeInsets.all(((widget.itemSize * 2) / 10)),
+      contentPadding: padding,
       errorMaxLines: 1,
     );
 
@@ -164,7 +173,7 @@ class _VerificationCodeState extends State<VerificationCode> {
         ),
       ),
       counterText: "",
-      contentPadding: EdgeInsets.all(((widget.itemSize * 2) / 10)),
+      contentPadding: padding,
       errorMaxLines: 1,
     );
 
@@ -181,9 +190,7 @@ class _VerificationCodeState extends State<VerificationCode> {
       },
       child: TextField(
         keyboardType: widget.keyboardType,
-        inputFormatters: widget.digitsOnly
-            ? <TextInputFormatter>[FilteringTextInputFormatter.digitsOnly]
-            : null,
+        inputFormatters: widget.digitsOnly ? <TextInputFormatter>[FilteringTextInputFormatter.digitsOnly] : null,
         maxLines: 1,
         maxLength: widget.length - index,
         controller: _listControllerText[index],
@@ -197,7 +204,6 @@ class _VerificationCodeState extends State<VerificationCode> {
         obscureText: widget.isSecure,
         style: widget.textStyle,
         decoration: widget.fullBorder ? fullDecoration : underlinedDecoration,
-        //      textInputAction: TextInputAction.previous,
         onChanged: (String value) {
           if ((_currentIndex + 1) == widget.length && value.isNotEmpty) {
             widget.onEditing(false);
@@ -215,8 +221,7 @@ class _VerificationCodeState extends State<VerificationCode> {
             int _index = index;
 
             while (_value.isNotEmpty && _index < widget.length) {
-              _listControllerText[_index].value =
-                  TextEditingValue(text: _value[0]);
+              _listControllerText[_index].value = TextEditingValue(text: _value[0]);
               _next(_index++);
               _value = _value.substring(1);
             }
@@ -256,11 +261,14 @@ class _VerificationCodeState extends State<VerificationCode> {
     List<Widget> listWidget = [];
     for (int index = 0; index < widget.length; index++) {
       double left = (index == 0) ? 0.0 : (widget.itemSize / 10);
-      listWidget.add(Container(
-          height: widget.itemSize,
-          width: widget.itemSize,
-          margin: EdgeInsets.only(left: left),
-          child: _buildInputItem(index)));
+      listWidget.add(Padding(
+        padding: widget.margin,
+        child: Container(
+            height: widget.itemSize,
+            width: widget.itemSize,
+            margin: EdgeInsets.only(left: left),
+            child: _buildInputItem(index)),
+      ));
     }
     return listWidget;
   }
@@ -275,9 +283,7 @@ class _VerificationCodeState extends State<VerificationCode> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: _buildListWidget(),
             ),
-            widget.clearAll != null
-                ? _clearAllWidget(widget.clearAll)
-                : const SizedBox(),
+            widget.clearAll != null ? _clearAllWidget(widget.clearAll) : const SizedBox(),
           ],
         ));
   }

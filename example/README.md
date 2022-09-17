@@ -1,83 +1,16 @@
 # example
 
-How to use flutter_verification_code package.
+A new Flutter project.
 
 ## Getting Started
 
+This project is a starting point for a Flutter application.
 
-```dart
-import 'package:flutter/material.dart';
-import 'package:flutter_verification_code/flutter_verification_code.dart';
+A few resources to get you started if this is your first Flutter project:
 
-void main() => runApp(MyApp());
+- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
+- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: MyHomePage(),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  bool _onEditing = true;
-  String _code;
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Center(child: Text('Example verify code')),
-      ),
-      body: Column(
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Center(
-              child: Text(
-                'Enter your code',
-                style: TextStyle(fontSize: 20.0),
-              ),
-            ),
-          ),
-          VerificationCode(
-            keyboardType: TextInputType.number,
-            length: 4,
-            autofocus: false,
-            onCompleted: (String value) {
-              print(value);
-              setState(() {
-                _code = value;
-              });
-            },
-            onEditing: (bool value) {
-              setState(() {
-                _onEditing = value;
-              });
-            },
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Center(
-              child: (_onEditing != true)
-                  ? Text('Your code: $_code')
-                  : Text('Please enter full code'),
-            ),
-          )
-        ],
-      ),
-    );
-  }
-}
-```
+For help getting started with Flutter development, view the
+[online documentation](https://docs.flutter.dev/), which offers tutorials,
+samples, guidance on mobile development, and a full API reference.
