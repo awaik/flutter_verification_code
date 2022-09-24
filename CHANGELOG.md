@@ -1,3 +1,19 @@
+# 1.1.6
+
+Made by https://github.com/ebrahim-2
+
+- Add filled property to activate input background color when fillColor has a value
+
+If true the decoration's container is filled with fillColor.
+
+When InputDecorator.isHovering is true, the hoverColor is also blended into the final fill color.
+
+Typically this field set to true if border is an UnderlineInputBorder.
+
+The decoration's container is the area which is filled if filled is true and bordered per the border. It's the area adjacent to icon and above the widgets that contain helperText, errorText, and counterText.
+
+This property is false by default.
+
 # 1.1.5
 
 - Fixed https://github.com/awaik/flutter_verification_code/issues/33, thank to https://github.com/Xorn4400
