@@ -143,6 +143,7 @@ class _VerificationCodeState extends State<VerificationCode> {
 
     final underlinedDecoration = InputDecoration(
       fillColor: widget.fillColor,
+      filled: widget.fillColor != null ? true : false,
       enabledBorder: UnderlineInputBorder(
         borderSide: BorderSide(
           color: widget.underlineUnfocusedColor ?? Colors.grey,
@@ -162,6 +163,7 @@ class _VerificationCodeState extends State<VerificationCode> {
 
     final fullDecoration = InputDecoration(
       fillColor: widget.fillColor,
+      filled: widget.fillColor != null ? true : false,
       enabledBorder: OutlineInputBorder(
         borderSide: BorderSide(
           color: widget.underlineUnfocusedColor ?? Colors.grey,
