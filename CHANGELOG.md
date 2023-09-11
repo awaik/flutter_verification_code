@@ -1,3 +1,9 @@
+# 1.1.7
+
+Made by https://github.com/avraham-mayer
+
+- If backspace pressed in empty box, move to previous box
+
 # 1.1.6
 
 Made by https://github.com/ebrahim-2
