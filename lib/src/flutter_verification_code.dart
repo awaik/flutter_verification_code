@@ -185,6 +185,13 @@ class _VerificationCodeState extends State<VerificationCode> {
       focusNode: _listFocusNodeKeyListener[index],
       onKey: (event) {
         if (event.runtimeType == RawKeyUpEvent) {
+          if (event.data.logicalKey == LogicalKeyboardKey.backspace &&
+              _listControllerText[index].text.isEmpty) {
+            if (index > 0) {
+              _listControllerText[index - 1].clear();
+            }
+            _prev(index);
+          }
           if (event.data.logicalKey == LogicalKeyboardKey.arrowLeft) {
             _prev(index);
           } else if (event.data.logicalKey == LogicalKeyboardKey.arrowRight) {
