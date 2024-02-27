@@ -59,6 +59,12 @@ class VerificationCode extends StatefulWidget {
   /// padding inside boxes
   final EdgeInsets? padding;
 
+  /// Decoration of enable full borders
+  final OutlineInputBorder ? fullBorderEnabledDecoration ;
+  
+  /// Decoration of Focused full borders
+  final OutlineInputBorder ? fullBorderFocusedDecoration ;
+
   const VerificationCode({
     Key? key,
     required this.onCompleted,
@@ -70,6 +76,8 @@ class VerificationCode extends StatefulWidget {
     this.underlineColor,
     this.underlineUnfocusedColor,
     this.fullBorder = false,
+    this.fullBorderEnabledDecoration ,
+    this.fullBorderFocusedDecoration,
     this.fillColor,
     this.underlineWidth,
     this.textStyle = const TextStyle(fontSize: 25.0),
@@ -164,13 +172,13 @@ class _VerificationCodeState extends State<VerificationCode> {
     final fullDecoration = InputDecoration(
       fillColor: widget.fillColor,
       filled: widget.fillColor != null ? true : false,
-      enabledBorder: OutlineInputBorder(
-        borderSide: BorderSide(
+      enabledBorder: widget.fullBorderEnabledDecoration ?? OutlineInputBorder(
+        borderSide:  BorderSide(
           color: widget.underlineUnfocusedColor ?? Colors.grey,
           width: widget.underlineWidth ?? 1,
         ),
       ),
-      focusedBorder: OutlineInputBorder(
+      focusedBorder: widget.fullBorderFocusedDecoration ?? OutlineInputBorder(
         borderSide: BorderSide(
           color: widget.underlineColor ?? Theme.of(context).primaryColor,
           width: widget.underlineWidth ?? 1,
