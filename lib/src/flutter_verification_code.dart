@@ -181,23 +181,27 @@ class _VerificationCodeState extends State<VerificationCode> {
       errorMaxLines: 1,
     );
 
-    return RawKeyboardListener(
+    return Focus(
       focusNode: _listFocusNodeKeyListener[index],
-      onKey: (event) {
-        if (event.runtimeType == RawKeyUpEvent) {
-          if (event.data.logicalKey == LogicalKeyboardKey.backspace &&
+      onKeyEvent: (FocusNode node, KeyEvent event) {
+        if (event is KeyUpEvent) {
+          if (event.logicalKey == LogicalKeyboardKey.backspace &&
               _listControllerText[index].text.isEmpty) {
             if (index > 0) {
               _listControllerText[index - 1].clear();
             }
             _prev(index);
+            return KeyEventResult.handled;
           }
-          if (event.data.logicalKey == LogicalKeyboardKey.arrowLeft) {
+          if (event.logicalKey == LogicalKeyboardKey.arrowLeft) {
             _prev(index);
-          } else if (event.data.logicalKey == LogicalKeyboardKey.arrowRight) {
+            return KeyEventResult.handled;
+          } else if (event.logicalKey == LogicalKeyboardKey.arrowRight) {
             _next(index);
+            return KeyEventResult.handled;
           }
         }
+        return KeyEventResult.ignored;
       },
       child: TextField(
         keyboardType: widget.keyboardType,
